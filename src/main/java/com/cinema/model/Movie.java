@@ -22,6 +22,9 @@ public class Movie {
   @Column(name = "DurationMin")
   private Integer durationMin;
 
+  /*public Movie() {
+  }*/
+
   public Integer getId() {
     return id;
   }
@@ -60,5 +63,16 @@ public class Movie {
 
   public void setDurationMin(Integer durationMin) {
     this.durationMin = durationMin;
+  }
+
+  @Override
+  public String toString() {
+    return "Movie{" +
+            "id=" + id +
+            ", title='" + title + '\'' +
+            ", director='" + director + '\'' +
+            ", description='" + description + '\'' +
+            ", durationMin=" + durationMin +
+            '}';
   }
 }

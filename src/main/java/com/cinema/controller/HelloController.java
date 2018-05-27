@@ -2,6 +2,7 @@ package com.cinema.controller;
 
 import com.cinema.dao.MovieDao;
 import com.cinema.model.Movie;
+import com.cinema.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +15,16 @@ import java.util.List;
 @Controller
 public class HelloController {
 
+  private MovieService movieService;
+
   @Autowired
-  private MovieDao movieDao;
+  public HelloController(MovieService movieService) {
+    this.movieService = movieService;
+  }
 
   @RequestMapping(value = "/")
   public String home(Model model) {
-    List<Movie> all = movieDao.all();
+    List<Movie> all = movieService.all();
     return "hello";
   }
 

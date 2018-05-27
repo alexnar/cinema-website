@@ -18,12 +18,27 @@ import java.util.List;
 @Transactional
 public class MovieDaoImpl implements MovieDao {
 
-  @Autowired
   private SessionFactory sessionFactory;
+
+  @Autowired
+  public MovieDaoImpl(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
 
   @Override
   public void add(Movie movie) {
     sessionFactory.getCurrentSession().save(movie);
+  }
+
+  @Override
+  public void remove(Integer id) {
+    Movie movie = get(id);
+    sessionFactory.getCurrentSession().delete(movie);
+  }
+
+  @Override
+  public Movie get(Integer id) {
+    return sessionFactory.getCurrentSession().get(Movie.class, id);
   }
 
   @Override
@@ -34,7 +49,6 @@ public class MovieDaoImpl implements MovieDao {
     query.select(from);
     Session session = sessionFactory.getCurrentSession();
     Query<Movie> q = session.createQuery(query);
-    List<Movie> resultList = q.getResultList();
-    return resultList;
+    return q.getResultList();
   }
 }
