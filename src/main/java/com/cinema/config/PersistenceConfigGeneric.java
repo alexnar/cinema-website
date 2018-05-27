@@ -1,10 +1,6 @@
 package com.cinema.config;
 
-import com.cinema.model.Movie;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -15,34 +11,81 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({"classpath:properties/persistence-${spring.profiles.active:dev}.properties"})
-public class PersistenceConfig {
-  @Value("${datasource.url}")
+public abstract class PersistenceConfigGeneric {
   private String url;
-
-  @Value("${datasource.driver}")
   private String driver;
-
-  @Value("${datasource.username}")
   private String username;
-
-  @Value("${datasource.password}")
   private String password;
-
-  @Value("${datasource.pool-size}")
   private String poolSize;
-
-  @Value("${hibernate.show_sql}")
   private String showSql;
-
-  @Value("${hibernate.hbm2ddl.auto}")
   private String ddl;
-
-  @Value("${hibernate.dialect}")
   private String dialect;
 
-  @Bean
-  public DataSource dataSource() {
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public String getDriver() {
+    return driver;
+  }
+
+  public void setDriver(String driver) {
+    this.driver = driver;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getPoolSize() {
+    return poolSize;
+  }
+
+  public void setPoolSize(String poolSize) {
+    this.poolSize = poolSize;
+  }
+
+  public String getShowSql() {
+    return showSql;
+  }
+
+  public void setShowSql(String showSql) {
+    this.showSql = showSql;
+  }
+
+  public String getDdl() {
+    return ddl;
+  }
+
+  public void setDdl(String ddl) {
+    this.ddl = ddl;
+  }
+
+  public String getDialect() {
+    return dialect;
+  }
+
+  public void setDialect(String dialect) {
+    this.dialect = dialect;
+  }
+
+  public  DataSource dataSource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setDriverClassName(driver);
     dataSource.setUrl(url);
@@ -51,7 +94,6 @@ public class PersistenceConfig {
     return dataSource;
   }
 
-  @Bean
   public LocalSessionFactoryBean sessionFactory() {
     LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
     factoryBean.setDataSource(dataSource());
@@ -64,7 +106,6 @@ public class PersistenceConfig {
     return factoryBean;
   }
 
-  @Bean
   public HibernateTransactionManager transactionManager() {
     HibernateTransactionManager transactionManager = new HibernateTransactionManager();
     transactionManager.setSessionFactory(sessionFactory().getObject());
