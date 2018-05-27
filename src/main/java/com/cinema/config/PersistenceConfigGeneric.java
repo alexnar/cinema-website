@@ -97,13 +97,18 @@ public abstract class PersistenceConfigGeneric {
   public LocalSessionFactoryBean sessionFactory() {
     LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
     factoryBean.setDataSource(dataSource());
-    Properties props=new Properties();
-    props.put("hibernate.show_sql", showSql);
-    props.put("hibernate.hbm2ddl.auto", ddl);
-    props.put("hibernate.dialect", dialect);
-    factoryBean.setHibernateProperties(props);
+    Properties properties = hibernateProperties();
+    factoryBean.setHibernateProperties(properties);
     factoryBean.setPackagesToScan("com.cinema.model");
     return factoryBean;
+  }
+
+  public Properties hibernateProperties() {
+    Properties properties = new Properties();
+    properties.put("hibernate.show_sql", showSql);
+    properties.put("hibernate.hbm2ddl.auto", ddl);
+    properties.put("hibernate.dialect", dialect);
+    return properties;
   }
 
   public HibernateTransactionManager transactionManager() {
