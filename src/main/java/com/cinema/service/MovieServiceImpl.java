@@ -2,6 +2,7 @@ package com.cinema.service;
 
 import com.cinema.dao.MovieDao;
 import com.cinema.model.Movie;
+import com.cinema.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class MovieServiceImpl implements MovieService {
 
   @Override
   public void add(Movie movie) {
+    verify(movie);
     movieDao.add(movie);
   }
 
@@ -37,5 +39,8 @@ public class MovieServiceImpl implements MovieService {
     return movieDao.all();
   }
 
+  private void verify(Movie movie) {
+    if (movie == null) throw new ServiceException("Movie entity is null");
+  }
 
 }

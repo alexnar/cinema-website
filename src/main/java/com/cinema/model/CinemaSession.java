@@ -18,4 +18,8 @@ public class CinemaSession {
   @ManyToOne
   @JoinColumn(name = "MovieId")
   private Movie movie;
+
+  @ManyToOne
+  @JoinColumn(name = "HallId")
+  private Hall hall;
 }
