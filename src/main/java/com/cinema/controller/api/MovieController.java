@@ -21,26 +21,31 @@ public class MovieController {
     this.movieService = movieService;
   }
 
-  @RequestMapping(value = "/add", method = RequestMethod.POST)
+  @PostMapping("/")
   @ResponseStatus(value=HttpStatus.OK)
   public void add(@RequestBody Movie movie) {
     movieService.add(movie);
   }
 
-  @RequestMapping(value = "/remove", method = RequestMethod.POST)
+  @DeleteMapping("/{id}")
   @ResponseStatus(value=HttpStatus.OK)
-  public void remove(@RequestParam("id") Integer id) {
+  public void remove(@PathVariable Integer id) {
     movieService.remove(id);
   }
 
-  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public Movie get(@PathVariable("id") Integer id) {
+  @GetMapping("/{id}")
+  public Movie get(@PathVariable Integer id) {
     return movieService.get(id);
   }
 
-  @RequestMapping(value = "/all", method = RequestMethod.GET)
+  @GetMapping("/all")
   public List<Movie> all() {
     return movieService.all();
+  }
+
+  @PutMapping("/{id}")
+  public void update(@RequestBody Movie movie, @PathVariable Integer id) {
+
   }
 
 }

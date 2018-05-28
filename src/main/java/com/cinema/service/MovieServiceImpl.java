@@ -25,6 +25,11 @@ public class MovieServiceImpl implements MovieService {
   }
 
   @Override
+  public void update(Movie movie, Integer id) {
+    movieDao.update(movie, id);
+  }
+
+  @Override
   public void remove(Integer id) {
     movieDao.remove(id);
   }

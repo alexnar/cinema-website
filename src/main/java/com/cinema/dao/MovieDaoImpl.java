@@ -31,6 +31,12 @@ public class MovieDaoImpl implements MovieDao {
   }
 
   @Override
+  public void update(Movie movie, Integer id) {
+    remove(id);
+    add(movie);
+  }
+
+  @Override
   public void remove(Integer id) {
     Movie movie = get(id);
     sessionFactory.getCurrentSession().delete(movie);
