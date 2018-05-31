@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("/api/movies")
 public class MovieController {
-
-  private static final Logger logger = Logger.getLogger(MovieController.class);
 
   private MovieService movieService;
 
@@ -43,7 +41,6 @@ public class MovieController {
 
   @GetMapping("/all")
   public List<Movie> all() {
-    logger.info("Get all movies request");
     return movieService.all();
   }
 
